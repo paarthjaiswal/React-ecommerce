@@ -124,7 +124,7 @@ const Navbar = () => {
             <div className="flex items-center flex-shrink-0 mr-4">
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                src="https://pngtree.com/freepng/fitness-gym-logo-png_7964069.html"
                 alt="ShopEase"
               />
               <span className="ml-2 text-xl font-bold text-gray-800 dark:text-white">
