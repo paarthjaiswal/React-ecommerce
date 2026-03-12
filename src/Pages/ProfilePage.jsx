@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
+import { selectuser } from "../Features/Auth/authSlice";
+
 export default function ProfilePage() {
+  const user = useSelector(selectuser);
   const [profile, setProfile] = useState({
-    name: "John Doe",
-    email: "john@example.com",
+    name: user.userName,
+    email: user.email,
+    /// do something  about password and profile picture 
     password: "password123",
     profilePic:
       "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg",
@@ -52,7 +57,7 @@ export default function ProfilePage() {
 
         <form className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
             <input
               type="text"
               name="name"
@@ -75,7 +80,7 @@ export default function ProfilePage() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
               type="password"
@@ -98,7 +103,7 @@ export default function ProfilePage() {
                 required
               />
             </div>
-          )}
+          )} */}
 
           <div className="flex justify-between mt-6">
             <button

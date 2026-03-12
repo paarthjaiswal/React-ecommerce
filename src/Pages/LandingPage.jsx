@@ -1,5 +1,8 @@
 import FooterSection from "../Features/Footer/FooterSection";
 import { Link } from 'react-router-dom';
+import { selectuser } from "../Features/Auth/authSlice";
+import { useSelector } from "react-redux";
+
 
 const data = [{
   "id": 1,
@@ -206,6 +209,9 @@ const heroSectionData = {
 
 
 export default function HeroSection() {
+
+  const user = useSelector(selectuser);
+
   return (
     <>
       <section
@@ -224,7 +230,11 @@ export default function HeroSection() {
           </h1>
           <p className="mt-4 text-lg">{heroSectionData.description}</p>
           <div className="mt-6 flex justify-center gap-4">
-            {heroSectionData.buttons.map((btn, idx) => (
+            {heroSectionData.buttons.map((btn, idx) =>{ 
+              if(user && btn.text === "Sign Up"){
+                return null;
+              } else 
+              return (
               <Link
                 key={idx}
                 to={btn.link}
@@ -232,7 +242,7 @@ export default function HeroSection() {
               >
                 {btn.text}
               </Link>
-            ))}
+            )})}
           </div>
         </div>
       </section>

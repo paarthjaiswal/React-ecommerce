@@ -5,6 +5,9 @@ import {
   Settings, MapPin, Clipboard
 } from "react-feather";
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { selectuser } from "../Auth/authSlice";
+
 
 const categoryData = {
   Electronics: {
@@ -61,6 +64,9 @@ const Navbar = () => {
     newPath.push(key);
     setSelectedPath(newPath);
   };
+
+  const user = useSelector(selectuser);
+
 
   const renderLevels = () => {
     const levels = [];
@@ -206,15 +212,15 @@ const Navbar = () => {
 
                 {isProfileOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
-                    <Link to="/myprofile" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
+                    {user &&<Link to="/myprofile" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
                       <User size={16} className="mr-1" /> Profile
-                    </Link>
+                    </Link>}
                     <Link to="/myorders" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
                       <MapPin size={16} className="mr-1" />My Orders
                     </Link>
-                    <Link to="/signout" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
+                    {!user &&<Link to="/signout" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
                       <LogOut size={16} className="mr-1" /> Sign Out
-                    </Link>
+                    </Link>}
                   </div>
                 )}
               </div>

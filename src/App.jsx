@@ -13,6 +13,7 @@ import SignUpPage from './Pages/Auth/SignUpPage'
 import Verify from './Pages/Auth/Verify'
 import ProductView from './Features/ProductView/ProductView';
 import Checkout from './Pages/Payments/CheakOutPage';
+import Protect from './Features/Auth/protect';
 function App() {
   return (  
     <Router>
@@ -23,13 +24,12 @@ function App() {
         <Route path="/auth/signup" element={<SignUpPage />} />
         <Route path="/auth/verify" element={<Verify />} />
         <Route path="/productview" element={<ProductView />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/myprofile" element={<ProfilePage />} />
-        <Route path="/myorders" element={<PreviousOrdersPage />} />
+        <Route path="/cart" element={<Protect><CartPage /></Protect>} />
+        <Route path="/myprofile" element={<Protect><ProfilePage /></Protect>} />
+        <Route path="/myorders" element={<Protect><PreviousOrdersPage /></Protect>} />
         <Route path="/orders/:id" element={<PrevOderViewPage />} />
         <Route path="/product/:id" element={<ProductViewPage />} />
-        <Route path="/cart/cheakout" element={<Checkout />} />
-
+        <Route path="/cart/cheakout" element={<Protect><Checkout /></Protect>} />
       </Routes>
     </Router>
   )
