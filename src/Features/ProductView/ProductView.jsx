@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { StarIcon } from '@heroicons/react/20/solid'
 import { Radio, RadioGroup } from '@headlessui/react'
 import { fetchselectedproduct,selectselectedproduct } from '../ProductList/productListSlice';
+import { addtoCartasync } from '../Cart/cartSlice';
+import { selectuser } from '../Auth/authSlice';
 
 
 
@@ -50,6 +52,11 @@ export default function ProductView() {
     }},[id,dispatch])
     console.log(id);
     console.log(product);
+    const user = useSelector(selectuser);
+    const handlecart = (e) => {
+      e.preventDefault();
+      dispatch(addtoCartasync({...product,quantity:1,userId:user.email}))
+    }
   return (
     <div className="bg-white">
       {product && (
@@ -291,6 +298,7 @@ export default function ProductView() {
 
                 <button
                   type="submit"
+                  onClick={handlecart}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Cart

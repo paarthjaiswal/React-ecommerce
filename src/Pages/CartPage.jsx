@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { FaStar, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectuser } from "../Features/Auth/authSlice";  
+import { selectcart ,updateCartasync,deleteCartItemasync} from "../Features/Cart/cartSlice";
 
 const initialCart = [
   {
@@ -49,18 +52,36 @@ const initialCart = [
   }
 ];
 
-export default function CartPage() {
-  const [cart, setCart] = useState(initialCart);
 
+export default function CartPage() {
+  const user = useSelector(selectuser);
+  const cartlist = useSelector(selectcart)
+  const dispatch = useDispatch();
+  const [cart, setCart] = useState(cartlist);
   const handleRemove = (id) => {
     setCart(cart.filter(item => item.id !== id));
+    // make this dispatch work 
+    dispatch(deleteCartItemasync(id));
   };
-
   const handleAddQuantity = (id) => {
-    setCart(cart.map(item => 
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
-  };
+    console.log("handle add is run"+id)
+  setCart(cart.map(item => {
+    // 1. Find the specific item the user clicked
+    if (item.id === id) {
+      // 2. Create a brand new object with the +1 quantity
+      const updatedItem = { ...item, quantity: item.quantity + 1 };
+      
+      // 3. Dispatch the NEW item to Redux/Backend
+      dispatch(updateCartasync(updatedItem));
+      
+      // 4. Return the new item to update your local React state
+      return updatedItem;
+    }
+    
+    // 5. For all other items, return them exactly as they are
+    return item;
+  }));
+};
 
   const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -74,12 +95,12 @@ export default function CartPage() {
             <div key={product.id} className="flex items-center justify-between p-4 border rounded-lg shadow-sm">
               <div className="flex items-center gap-4">
                 <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
+                  src={product.thumbnail}
+                  alt={product.description}
                   className="w-24 h-24 object-cover rounded-lg"
                 />
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
+                  <h3 className="text-lg font-medium text-gray-900">{product.title}</h3>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     Quantity: {product.quantity}
                     <button
@@ -90,7 +111,7 @@ export default function CartPage() {
                     </button>
                   </div>
                   <div className="flex items-center gap-1 text-gray-600 text-sm mt-1">
-                    <FaStar className="text-yellow-500" /> {product.rating} ({product.reviews} reviews)
+                    <FaStar className="text-yellow-500" /> {product.rating} ( rating)
                   </div>
                   <p className="text-sm text-gray-900 font-medium">Price: ${product.price}</p>
                 </div>

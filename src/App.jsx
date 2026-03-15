@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect} from 'react'
+import { useDispatch ,useSelector} from 'react-redux';
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './Pages/LandingPage';
@@ -14,7 +15,20 @@ import Verify from './Pages/Auth/Verify'
 import ProductView from './Features/ProductView/ProductView';
 import Checkout from './Pages/Payments/CheakOutPage';
 import Protect from './Features/Auth/protect';
+import { selectuser } from './Features/Auth/authSlice';
+import { fetchCartbyidasync } from './Features/Cart/cartSlice';
+
 function App() {
+
+  const dispatch = useDispatch();
+  const user = useSelector(selectuser);
+useEffect(
+  ()=>{
+    console.log(user+"user in app");
+if(user) dispatch(fetchCartbyidasync(user.email))
+  },[dispatch,user]
+)
+
   return (  
     <Router>
       <Routes>

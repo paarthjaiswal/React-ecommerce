@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { selectuser } from "../Auth/authSlice";
-
+import { selectcart } from "../Cart/cartSlice";
 
 const categoryData = {
   Electronics: {
@@ -47,7 +47,11 @@ const Navbar = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedPath, setSelectedPath] = useState([]);
   const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
-  const [cartCount] = useState(3);
+  const cart = useSelector(selectcart);
+  const totalItemsCount = cart.reduce((total, item) => {
+    return total + item.quantity;
+  },0)
+  const [cartCount] = useState(totalItemsCount);
 
   useEffect(() => {
     if (darkMode) {
