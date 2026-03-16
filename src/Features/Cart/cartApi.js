@@ -42,3 +42,8 @@ export function deleteCartItem(data){
 //     it wont work we fix it later 
 return data
 }
+
+export function clearCart(data){
+    console.log(data);
+    /// will work on it later 
+} 

@@ -1,10 +1,11 @@
 import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
-import { addtoCart, getCartbyuser,updateCart,deleteCartItem} from "./cartApi"; 
+import { addtoCart, getCartbyuser,updateCart,deleteCartItem ,clearCart } from "./cartApi"; 
 
 const initialState ={
     items :[],
     status : 'idle',
 }
+
 export const addtoCartasync = createAsyncThunk(
 'cart/addtoCart',
 async (data)=>{
@@ -39,11 +40,22 @@ async (data)=>{
 
 export const deleteCartItemasync = createAsyncThunk(
     'cart/deleteCartItem',
+    ///// wok on it laterrr
     async (data) => {
         const res = await deleteCartItem(data)
         return res
     }
 )
+
+export const resetCartasync = createAsyncThunk(
+    'cart/resetCart',
+    ///// wok on it laterrr
+    async (data) => {
+        const res = await clearCart(data)
+        return res
+    }
+)
+
 
 export const cartSlice = createSlice({
     name : 'cart',

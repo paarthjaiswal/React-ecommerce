@@ -219,11 +219,11 @@ const Navbar = () => {
                     {user &&<Link to="/myprofile" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
                       <User size={16} className="mr-1" /> Profile
                     </Link>}
-                    <Link to="/myorders" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
+                    {user && <Link to="/myorders" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
                       <MapPin size={16} className="mr-1" />My Orders
-                    </Link>
-                    {!user &&<Link to="/signout" className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
-                      <LogOut size={16} className="mr-1" /> Sign Out
+                    </Link>}
+                    {<Link to={user ? "/auth/signout" : "/auth/signin"} className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center">
+                      <LogOut size={16} className="mr-1" /> {user ? "Sign Out" : "Sign In"}
                     </Link>}
                   </div>
                 )}

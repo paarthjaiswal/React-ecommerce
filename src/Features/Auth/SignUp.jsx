@@ -11,7 +11,7 @@ export default function SignUp() {
   const onSubmit = (e) => {
     // navigate("/auth/verify");
     console.log(e);
-    dispatch(creatuserasyc({email:e.email,password:e.password,userName:e.userName}));
+    dispatch(creatuserasyc({email:e.email,password:e.password,userName:e.userName,role: 'user'}));
   };
 
 

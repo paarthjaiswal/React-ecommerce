@@ -17,6 +17,10 @@ import Checkout from './Pages/Payments/CheakOutPage';
 import Protect from './Features/Auth/protect';
 import { selectuser } from './Features/Auth/authSlice';
 import { fetchCartbyidasync } from './Features/Cart/cartSlice';
+import NotFoundPage from './Pages/NotFoundPage'
+import OrderSucessPage from './Pages/OrderSucessPage';
+import SignOutPage from './Pages/SignOutPage';  
+
 
 function App() {
 
@@ -44,9 +48,13 @@ if(user) dispatch(fetchCartbyidasync(user.email))
         <Route path="/orders/:id" element={<PrevOderViewPage />} />
         <Route path="/product/:id" element={<ProductViewPage />} />
         <Route path="/cart/cheakout" element={<Protect><Checkout /></Protect>} />
+        <Route path='*' element={<NotFoundPage />} />
+        <Route path='/order-success' element={<OrderSucessPage />} />
+        <Route path='/auth/signout' element={<SignOutPage />} />
       </Routes>
     </Router>
   )
 }
 
 export default App
+/////// built admin panale , add product , edit porducts ,  edit quantitys , list of ordes , edit use info , see youse info , crreat use and admin , add he 

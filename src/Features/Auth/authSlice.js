@@ -1,5 +1,5 @@
 import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
-import { checkUser, creatuser as creatuserApi } from "./authAPI";
+import { checkUser, creatuser as creatuserApi, signOutUser, updateUser } from "./authAPI";
 
 const initialState ={
     loggeduser :null,
@@ -25,6 +25,25 @@ export const checkUserAsync = createAsyncThunk(
         return res;
     }
 )
+
+export const updateUserAsync = createAsyncThunk(
+    'user/updateUser',
+    async (data) =>{
+        const res = await updateUser(data);
+        console.log("update user thunk")
+        console.log(res)
+        return res;
+    }
+)
+
+export const signOutUserAsync = createAsyncThunk(
+    'user/signOutUser',
+    async (data) =>{
+        const res = await signOutUser(data);
+        return res;
+    }
+)
+
 
 export const authSlice = createSlice({
     name : 'user',
@@ -55,6 +74,23 @@ extraReducers : (builder)=>{
         state.status ='idle';
         state.error = action.error;
     })
+    .addCase(updateUserAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // Overwrite the old user data with the newly updated user data
+        state.loggeduser = action.payload; 
+      })
+      .addCase(updateUserAsync.pending, (state) => {
+        state.status = 'pending';
+        
+      })
+      .addCase(signOutUserAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.loggeduser = null
+      })
+      .addCase(signOutUserAsync.pending, (state) => {
+        state.status = 'pending';
+        
+      })
     // You could also store an error message here: state.error = action.error.message;
 }
 })
