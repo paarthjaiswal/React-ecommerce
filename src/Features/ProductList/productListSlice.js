@@ -59,6 +59,7 @@ export const fetchProductbyfilter = createAsyncThunk(
         'products/selectedproduct',
             async (id) =>{
               const data = await fetchproductbyid(id);
+              console.log("thunk runs for fetch selected product");
               return data
             })
 

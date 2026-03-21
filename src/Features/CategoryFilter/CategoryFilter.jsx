@@ -248,6 +248,9 @@ useEffect(() => {
     }
   }
   setFilter(newFilter);
+    console.log(newFilter);
+  console.log(filter);
+  console.log("filter is running");
   dispatch(fetchProductbyfilter(newFilter));
   };                
 
@@ -263,6 +266,9 @@ const handleSort = (e, option) => {
 
   // 4. Update state and dispatch
   setFilter(newFilter);
+  console.log(newFilter);
+  console.log(filter);
+  console.log("sort running");
   dispatch(fetchProductbyfilter(newFilter));
 };
 

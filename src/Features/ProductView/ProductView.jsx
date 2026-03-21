@@ -50,12 +50,10 @@ export default function ProductView() {
     if(id){
       dispatch(fetchselectedproduct(id));
     }},[id,dispatch])
-    console.log(id);
-    console.log(product);
     const user = useSelector(selectuser);
     const handlecart = (e) => {
       e.preventDefault();
-      dispatch(addtoCartasync({...product,quantity:1,userId:user.email}))
+      dispatch(addtoCartasync({product:product.id,quantity:1,userId :user.id}))
     }
   return (
     <div className="bg-white">

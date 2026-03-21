@@ -20,7 +20,7 @@ export const fetchCartbyidasync = createAsyncThunk(
 async (data)=>{
     console.log(data)
     const res = await getCartbyuser(data)
-    console.log("addtocart thunk")
+    console.log("fetcg by user cart thunk")
     console.log(res)
     return res;
 }
@@ -88,6 +88,23 @@ extraReducers : (builder)=>{
         const index =  state.items.findIndex(item=>item.id===action.payload.id)
         state.items[index] = action.payload       
     })
+    .addCase(deleteCartItemasync.pending, (state) => {
+    state.status = 'loading';
+  })
+  .addCase(deleteCartItemasync.fulfilled, (state, action) => {
+    state.status = 'idle';
+    // THIS IS THE FIX: 
+    // We look at the ID returned from the API, and we filter the Redux array
+    // to keep everything EXCEPT the item that was just deleted.
+    state.items = state.items.filter(item => item.id !== action.payload.id);
+  })
+  .addCase(resetCartasync.pending, (state) => {
+    state.status = 'loading';
+  })
+  .addCase(resetCartasync.fulfilled, (state, action) => {
+    state.status = 'idle';
+    state.items = [];
+  })
     // You could also store an error message here: state.error = action.error.message;
 }
 })
