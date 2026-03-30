@@ -1,5 +1,5 @@
 import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
-import { checkUser, creatuser as creatuserApi, signOutUser, updateUser } from "./authAPI";
+import { checkUser, creatuser as creatuserApi, signOutUser, updateUser ,checkAuth} from "./authAPI";
 
 const initialState ={
     loggeduser :null,
@@ -28,12 +28,15 @@ export const checkUserAsync = createAsyncThunk(
 
 export const updateUserAsync = createAsyncThunk(
     'user/updateUser',
-    async (data) =>{
-        const res = await updateUser(data);
-        console.log("update user thunk")
-        console.log(res)
-        return res;
+   async (update, { rejectWithValue }) => {
+    try {
+      // Pass the whole updated user object to the API
+      const response = await updateUser(update); 
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
+  }
 )
 
 export const signOutUserAsync = createAsyncThunk(
@@ -44,6 +47,17 @@ export const signOutUserAsync = createAsyncThunk(
     }
 )
 
+export const checkAuthAsync = createAsyncThunk(
+  'user/checkAuth',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await checkAuth();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export const authSlice = createSlice({
     name : 'user',
@@ -91,6 +105,13 @@ extraReducers : (builder)=>{
         state.status = 'pending';
         
       })
+      .addCase(checkAuthAsync.fulfilled, (state, action) => {
+     state.loggeduser = action.payload; // They are officially logged in!
+     state.status = 'idle';
+  })
+  .addCase(checkAuthAsync.rejected, (state, action) => {
+     state.loggeduser = null; // Token failed, keep them logged out
+  })
     // You could also store an error message here: state.error = action.error.message;
 }
 })
@@ -99,3 +120,16 @@ export const selectuser = (state) => state.user.loggeduser;
 export const seleerror = (state) => state.user.error;
 
 export default authSlice.reducer;
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,7 +15,7 @@ import Verify from './Pages/Auth/Verify'
 import ProductView from './Features/ProductView/ProductView';
 import Checkout from './Pages/Payments/CheakOutPage';
 import Protect from './Features/Auth/protect';
-import { selectuser } from './Features/Auth/authSlice';
+import { selectuser,checkAuthAsync } from './Features/Auth/authSlice';
 import { fetchCartbyidasync } from './Features/Cart/cartSlice';
 import NotFoundPage from './Pages/NotFoundPage'
 import OrderSucessPage from './Pages/OrderSucessPage';
@@ -26,12 +26,23 @@ function App() {
 
   const dispatch = useDispatch();
   const user = useSelector(selectuser);
-useEffect(
-  ()=>{
-    console.log(user+"user in app");
-if(user) dispatch(fetchCartbyidasync(user.email))
-  },[dispatch,user]
-)
+  useEffect(() => {
+    // When the app boots up, check the vault and try to restore the session
+    const token = localStorage.getItem('jwt_token');
+    if (token) {
+      console.log("Found token! Attempting auto-login...");
+      dispatch(checkAuthAsync());
+    }
+  }, [dispatch]);
+
+useEffect(() => {
+    // This watches the 'user' state. 
+    // Once Effect 1 finishes and 'user' becomes real data, this fires!
+    if (user) {
+      console.log("User is logged in! Fetching their cart...");
+      dispatch(fetchCartbyidasync());
+    }
+  }, [dispatch, user]);
 
   return (  
     <Router>

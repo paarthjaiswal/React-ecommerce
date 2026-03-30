@@ -1,6 +1,6 @@
 import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
 import { addtoCart, getCartbyuser,updateCart,deleteCartItem ,clearCart } from "./cartApi"; 
-
+import { useSelector } from "react-redux";
 const initialState ={
     items :[],
     status : 'idle',
@@ -19,7 +19,7 @@ export const fetchCartbyidasync = createAsyncThunk(
 'cart/fetchcartbyid',
 async (data)=>{
     console.log(data)
-    const res = await getCartbyuser(data)
+    const res = await getCartbyuser()
     console.log("fetcg by user cart thunk")
     console.log(res)
     return res;
