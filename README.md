@@ -1,50 +1,93 @@
-<!-- PORTFOLIO_OVERVIEW_START -->
-React E-Commerce is a browser-based storefront for discovering products and managing authenticated carts, customer profiles, and orders through a REST API. Built as a Vite-powered React single-page application, it uses React Router for navigation and Redux Toolkit with React Redux to coordinate asynchronous product, user, cart, and order state.
-<!-- PORTFOLIO_OVERVIEW_END -->
+# 🛒 React E-Commerce Website
 
-<!-- PORTFOLIO_HIGHLIGHTS_START -->
-- **Highlight 1:** Implements product browsing with category and brand data, filtering, and individual product views.
-- **Highlight 2:** Organizes product, authentication, cart, and order workflows into Redux Toolkit slices backed by REST API modules; protected routes require an authenticated user.
-- **Highlight 3:** Provides Vite development, production-build, preview, and ESLint commands through npm scripts.
-<!-- PORTFOLIO_HIGHLIGHTS_END -->
+A full-stack e-commerce web application built using **React**, **Vite**, and **Tailwind CSS**. This project demonstrates modern frontend development practices and UI design principles.
 
-# React E-Commerce
+## 🚀 Features
 
-A React storefront for product discovery, shopping-cart management, and order placement.
+- 🔍 Dynamic product listings
+- 🛒 Add to cart & quantity update
+- 📦 Checkout with address and payment input
+- 🗺️ Map-based shipping location using Leaflet
+- 💻 Responsive UI for desktop and mobile
 
-## Tech Stack
+## 🔧 Tech Stack
 
-- **React 19** and **React DOM** for the user interface
-- **Vite** and `@vitejs/plugin-react` for development and production builds
-- **React Router** for client-side routing
-- **Redux Toolkit** and **React Redux** for application state
-- **Tailwind CSS 4** with the Vite plugin for styling
-- **React Hook Form** for form handling
-- **Leaflet** and **React Leaflet** are dependencies; the app imports Leaflet styles
+- React
+- Vite
+- Tailwind CSS
+- Leaflet (for maps)
+- React Router
+- Context API or Redux (if you're using one)
 
-## Architecture / Key Features
+## 📸 Screenshots
+🛍️ Home Page
 
-The application entry point mounts the React app with the Redux store, and the router defines storefront, product, authentication, cart, profile, checkout, and order pages. State and API logic are grouped by feature under `src/Features/`, with separate slices for users, products, cart contents, and orders.
+Landing page showcasing featured products, a sleek navbar, and intuitive navigation.
 
-The storefront supports product listings, category and brand data, product filtering, and product detail views. Account flows include sign-up, sign-in, session restoration from a locally stored token, and protected routes. Signed-in users can manage a cart, maintain shipping addresses, choose cash or card as an order payment method, and view order-related pages.
+![image](https://github.com/user-attachments/assets/305e80b6-f37e-45ed-b698-740ec19623da)
 
-The backend is not included in this repository. API modules make requests to `http://localhost:8080`; the product-filter thunk in `src/Features/ProductList/productListSlice.js` instead requests `http://localhost:3000/products`. Backend-dependent functionality therefore requires compatible API services at the endpoints used by the relevant flows. The checkout UI records a selected payment method; no payment-processing integration is present in this repository.
+🔍 Product Listings
 
-## Local Setup & Run Instructions
+Displays available products with filters and category-based sorting.
 
-From the repository root, install the locked dependencies and start the Vite development server:
+![image](https://github.com/user-attachments/assets/c5622852-de76-4c7a-a57a-15442b1cf2a1)
 
-```sh
-npm ci
+![image](https://github.com/user-attachments/assets/fec52688-74cd-4adb-a963-e2c909e07ab6)
+
+🛒 Cart Page
+
+Overview of selected items, quantity management, and total price calculation.
+![image](https://github.com/user-attachments/assets/ce456602-6cf5-44f8-ba74-aca46b98d1c6)
+
+🧾 Checkout Page
+
+Final step where users provide their address, choose a payment method, and confirm the order.
+![image](https://github.com/user-attachments/assets/d9c6cc8d-4234-4c33-9651-1b78dbdb6e4b)
+📍 Map-Based Location Picker
+
+Users can pin their exact location using an interactive map for accurate delivery.
+
+![image](https://github.com/user-attachments/assets/25d06e3e-cd48-45fc-8c0e-dbc0643f52b4)
+
+👤 Profile Page
+
+Users can view and manage their personal details including name, email, and address. This page also allows updates to profile information, enhancing user experience and personalization.
+
+![image](https://github.com/user-attachments/assets/bdc19b67-68d7-4c30-85fc-c2bf9863d156)
+
+📝 Sign Up Page
+
+New users can create an account by providing their name, email, and password. Form includes validation and error handling.
+![image](https://github.com/user-attachments/assets/79a2c606-51e7-4dbe-97f2-a78ade5ca5cb)
+🔑 Sign In Page
+
+Existing users can securely log in using their credentials. Includes “Forgot Password” link and validation feedback.
+
+![image](https://github.com/user-attachments/assets/b81ca66f-3321-4908-b407-fe007b39ef4f)
+📧 Email Verification Page
+
+After registration, users are prompted to verify their email address to activate their account. This ensures security and prevents fake sign-ups.
+![image](https://github.com/user-attachments/assets/e39156e0-78f5-4246-a228-8816dd615641)
+
+
+
+## 📁 Folder Structure
+
+![image](https://github.com/user-attachments/assets/cbcf07a2-983b-40fe-bda7-d0fddf0c6984)
+
+🧑‍💻 How to Run Locally
+
+# Clone the repository
+git clone https://github.com/B1gSmok/React-ecommerce.git
+
+# Navigate into the project directory
+cd React-ecommerce
+
+# Install all dependencies
+npm install
+
+# Start the development server
 npm run dev
-```
 
-The development server prints the local URL in the terminal. The frontend can be built, linted, or previewed using the scripts defined in `package.json`:
 
-```sh
-npm run build
-npm run lint
-npm run preview
-```
 
-`npm run preview` serves the production build locally, so run `npm run build` first. The repository does not include a backend start script; provide the API services described above separately to exercise API-backed features.
